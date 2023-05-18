@@ -53,17 +53,32 @@ int Hotel::checkin(string _nombreHuesped, int _adultos, int _infantes, double _c
 bool Hotel::checkout(int _numero) {
     if (_numero >= 100 && _numero <= 149)
     {
-        habitaciones[100-_numero]->checkOut();
+        habitaciones[_numero - 100]->checkOut();
+        return true;
     }
     return false;
 }
 
-bool Hotel::realizarCargosHabitacion(int, double) {
+bool Hotel::realizarCargosHabitacion(int _numero, double _monto) {
+    if (!habitaciones[_numero -100]->getDisponible())
+    {
+        habitaciones[_numero -100]->realizarCargo(_monto);
+        return true;
+    }
     return false;
 }
 
 double Hotel::getTotalXTarifaBase() {
-    return 0;
+    double total = 0;
+    for (int i = 0; i<numHabitaciones; i++)
+    {
+        if (habitaciones[i] != nullptr)
+        {
+            total += habitaciones[i]->getTarifaBase();
+        }
+    }
+
+    return total;
 }
 
 void Hotel::imprimeOcupacion() {

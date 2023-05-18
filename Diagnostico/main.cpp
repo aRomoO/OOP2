@@ -5,13 +5,12 @@
 #include <iostream>
 #include "Habitacion.h"
 #include "Hotel.h"
-#include "string"
 using namespace std;
 
 int main() {
 
+    //Prueba métodos de Habitación
     Habitacion a1(100);
-
     a1.setNumero(200);
     a1.getNumero();
     a1.setDisponible(true);
@@ -21,11 +20,17 @@ int main() {
     a1.realizarCargo(1000);
     a1.toString();
     a1.checkOut();
+    ///////////
 
-    Hotel h1("FRHOTEL");
+
+
+    ///// PUEBA HOTEL
+    Hotel h1("FREDIHOTEL");
     cout << h1.checkin("Fredi Romo", 3, 3, 5050) << endl;
     cout << h1.checkin("Juan Perez", 4, 3, 2500) << endl;
     h1.imprimeOcupacion();
+    cout << h1.getTotalXTarifaBase();
+
 
 
     return 0;

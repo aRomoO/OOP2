@@ -26,7 +26,7 @@ public:
     bool checkin(string, int, int, double);
     bool checkOut();
     int getTarifaBase();
-    bool realizarCargo(float);
+    bool realizarCargo(double);
     string toString();
 };
 
@@ -93,7 +93,7 @@ int Habitacion::getTarifaBase() {
     //$450.00 pesos y $150.00 por cada niño
     return (450*adultos+150*infantes);
 }
-bool Habitacion::realizarCargo(float _monto) {
+bool Habitacion::realizarCargo(double _monto) {
     if (_monto >= 0 || _monto <= credito)
     {
         cargo += _monto;
