@@ -25,6 +25,7 @@ int main() {
     Hotel h1("FRHOTEL");
     cout << h1.checkin("Fredi Romo", 3, 3, 5050) << endl;
     cout << h1.checkin("Juan Perez", 4, 3, 2500) << endl;
+    h1.imprimeOcupacion();
 
 
     return 0;

@@ -67,7 +67,13 @@ double Hotel::getTotalXTarifaBase() {
 }
 
 void Hotel::imprimeOcupacion() {
-
+    for (int i = 0; i<numHabitaciones; i++)
+    {
+        if (habitaciones[i] != nullptr)
+        {
+            cout << habitaciones[i]->getNumero()<<",Huesped:"<<"[nombre]"<<",Tarifa Base:"<<habitaciones[i]->getTarifaBase()<<",Credito:"<<"[credito]"<<",Cargos:"<<"[CARGOS]"<<endl;
+        }
+    }
 }
 
 
