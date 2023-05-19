@@ -1,9 +1,7 @@
 //
 // Created by fredi on 2023-05-18.
 //
-//
-// Created by fredi on 2023-05-17.
-//
+
 
 using namespace std;
 #include "Habitacion.h"
@@ -33,34 +31,40 @@ Hotel::Hotel(string _nombre) {
 
 int Hotel::checkin(string _nombreHuesped, int _adultos, int _infantes, double _credito) {
 
-    //Check for Room Availability
+    //Create Habitacion object and store it on the first empty element of the Array//
+
     int i;
     for (i = 0; i <= numHabitaciones; i++)
     {
-        if (habitaciones[i] == nullptr)
+        if (habitaciones[i] == nullptr) //Check if there's and empty array element al habitaciones[i]
         {
+
             habitaciones[i] = new Habitacion(100+i);
             habitaciones[i]->checkin(_nombreHuesped,_adultos,_infantes,_credito);
             return habitaciones[i]->getNumero();
         }
 
     }
-
+    //If Array is full, return -1
     return-1;
 
 }
 
 bool Hotel::checkout(int _numero) {
+    //Validate room number
     if (_numero >= 100 && _numero <= 149)
     {
-        habitaciones[_numero - 100]->checkOut();
+        habitaciones[_numero - 100]->checkOut(); //get array element (0 to 49) by subtracting 100 from room number
         return true;
     }
     return false;
 }
 
 bool Hotel::realizarCargosHabitacion(int _numero, double _monto) {
-    if (!habitaciones[_numero -100]->getDisponible())
+
+    //get array element (0 to 49) by subtracting 100 from room number
+
+    if (!habitaciones[_numero -100]->getDisponible()) //Validate room is Checked in
     {
         habitaciones[_numero -100]->realizarCargo(_monto);
         return true;
@@ -72,7 +76,7 @@ double Hotel::getTotalXTarifaBase() {
     double total = 0;
     for (int i = 0; i<numHabitaciones; i++)
     {
-        if (habitaciones[i] != nullptr)
+        if (habitaciones[i] != nullptr) //If there's an empty array element, don't add it to the sum
         {
             total += habitaciones[i]->getTarifaBase();
         }
@@ -84,9 +88,9 @@ double Hotel::getTotalXTarifaBase() {
 void Hotel::imprimeOcupacion() {
     for (int i = 0; i<numHabitaciones; i++)
     {
-        if (habitaciones[i] != nullptr)
+        if (habitaciones[i] != nullptr) //If there's and empty array element, don't print it
         {
-            cout << habitaciones[i]->getNumero()<<",Huesped:"<<"[nombre]"<<",Tarifa Base:"<<habitaciones[i]->getTarifaBase()<<",Credito:"<<"[credito]"<<",Cargos:"<<"[CARGOS]"<<endl;
+            cout << habitaciones[i]->toString()<<endl;
         }
     }
 }
