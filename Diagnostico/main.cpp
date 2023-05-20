@@ -10,7 +10,7 @@
 using namespace std;
 
 
-void CheckIn(Hotel*hotel)
+int CheckIn(Hotel*hotel)
 {
     string nombre;
     int adultos;
@@ -31,10 +31,16 @@ void CheckIn(Hotel*hotel)
     scanf_s("%s",&credito);
 
     int numHabitacion = hotel->checkin(nombre,adultos,infantes,credito);
-    if (numHabitacion != -1)
+    return numHabitacion;
+    /*if (numHabitacion != -1)
     {
-        printf_s("\n CheckIn exitoso, el numero de habitacion es: %d",numHabitacion)
-    }
+        printf_s("\n CheckIn exitoso, el numero de habitacion es: #%d",numHabitacion);
+        return numHabitacion;
+    }*/
+    /*else
+    {
+        printf_s("\nNo fue posible realizar el CheckIn...");
+    }*/
 
 
 }
@@ -42,7 +48,17 @@ void CheckIn(Hotel*hotel)
 void CheckOut(Hotel*hotel)
 {
     int numHabitacion = 0;
-    hotel->checkout(numHabitacion);
+    printf_s("# de habitaciona hacer CheckOut: ");
+    scanf_s("%d",&numHabitacion);
+    if (hotel->checkout(numHabitacion))
+    {
+        printf_s("CheckOut Exitoso!\n");
+    }
+    else
+    {
+        printf_s("NO FUE POSIBLE REALIZAR EL CHECKOUT\n");
+    }
+
 }
 
 void realizarCargosHabitacion(Hotel*hotel)
@@ -88,17 +104,19 @@ int main() {
     printf_s("----------------------------");
     printf_s("  Hotel Management system   ");
     printf_s("----------------------------\n");
-
-    while (true) {
+    bool exit = false;
+    do
+    {
         int opt;
 
-        printf_s("----- Opciones -----\n");
+        printf_s("\n----- Opciones -----\n");
 
         printf_s("1) CheckIn:\n");
         printf_s("2) CheckoOut:\n");
         printf_s("3) Cargos a Habitacion:\n");
         printf_s("4) Total X Tarifa base:\n");
         printf_s("5) Ocupacion del Hotel:\n");
+        printf_s("0) Salir\n");
         printf_s("-------------------------\n");
         printf_s(":");
 
@@ -108,8 +126,11 @@ int main() {
             switch (opt) {
                 default:
                     break;
+                case 0:
+                    exit=true;
+                    break;
                 case 1:
-                    CheckIn(&h1);
+                    cout << CheckIn(&h1)<<endl;
                     break;
                 case 2:
                     CheckOut(&h1);
@@ -125,6 +146,7 @@ int main() {
                     break;
             }
 
-        }//END MAIN
-        return 0;
-}
+
+        } while (exit= false);//END WHILE
+        return 1;
+}//END MAIN
