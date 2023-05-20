@@ -39,8 +39,8 @@ int Hotel::checkin(string _nombreHuesped, int _adultos, int _infantes, double _c
         if (habitaciones[i] == nullptr) //Check if there's and empty array element al habitaciones[i]
         {
 
-            habitaciones[i] = new Habitacion(100+i);
-            habitaciones[i]->checkin(_nombreHuesped,_adultos,_infantes,_credito);
+            habitaciones[i] = new Habitacion(100+i); //Room number = 100 + array index
+            habitaciones[i]->checkin(_nombreHuesped,_adultos,_infantes,_credito); //Call the CheckIn Method
             return habitaciones[i]->getNumero();
         }
 
@@ -54,7 +54,7 @@ bool Hotel::checkout(int _numero) {
     //Validate room number
     if (_numero >= 100 && _numero <= 149)
     {
-        habitaciones[_numero - 100]->checkOut(); //get array element (0 to 49) by subtracting 100 from room number
+        habitaciones[_numero - 100] = nullptr; //get array element (0 to 49) by subtracting 100 from room number
         return true;
     }
     return false;
@@ -64,12 +64,26 @@ bool Hotel::realizarCargosHabitacion(int _numero, double _monto) {
 
     //get array element (0 to 49) by subtracting 100 from room number
 
-    if (!habitaciones[_numero -100]->getDisponible()) //Validate room is Checked in
-    {
-        habitaciones[_numero -100]->realizarCargo(_monto);
-        return true;
+    if (_numero > 99 && _numero<150){
+        if (!habitaciones[_numero -100]->getDisponible()) //Validate room is Checked in
+        {
+            habitaciones[_numero -100]->realizarCargo(_monto);
+            //DEBUG
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    return false;
+    else
+    {
+        return false;
+    }
+
+
+
+
 }
 
 double Hotel::getTotalXTarifaBase() {

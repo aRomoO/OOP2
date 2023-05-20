@@ -14,7 +14,7 @@ private:
     int adultos;
     int infantes;
     double credito;
-    double cargo;
+    double cargo = 0;
     bool disponible;
 public:
     Habitacion(); //default constructor
@@ -96,10 +96,12 @@ int Habitacion::getTarifaBase() {
     return (450*adultos+150*infantes);
 }
 bool Habitacion::realizarCargo(double _monto) {
-    if (_monto >= 0 || _monto <= credito) //Validate _monto is 0 or more, and it doesn't exceed client credit
+    if (_monto >= 0 && _monto <= credito) //Validate _monto is 0 or more, and it doesn't exceed client credit
     {
+
         cargo += _monto;
         credito -= _monto;
+
         return true;
     }
     else

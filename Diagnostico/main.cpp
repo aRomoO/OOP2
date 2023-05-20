@@ -13,27 +13,30 @@ using namespace std;
 void CheckIn(Hotel*hotel)
 {
     string nombre;
-    int adultos;
-    int infantes;
-    double credito;
+    int adultos=2;
+    int infantes=2;
+    double credito=2500;
+
+    //For some reason program crashes when using scanf_s... use std::cin instead
 
     printf_s("\n---CheckIn:---");
     printf_s("\nIngresa el nombre del huesped: ");
-    scanf_s("%s",&nombre);
+    //scanf_s("%s", &nombre);
+    cin >> nombre;
 
     printf_s("\nIngresa el nombre del adultos: ");
-    scanf_s("%s",&adultos);
+    scanf_s("%d",&adultos);
 
     printf_s("\nIngresa el numero de infantes: ");
-    scanf_s("%s",&infantes);
+    scanf_s("%d",&infantes);
 
     printf_s("\nIngresa el credito disponible: ");
-    scanf_s("%s",&credito);
+    scanf_s("%d",&credito);
 
     int numHabitacion = hotel->checkin(nombre,adultos,infantes,credito);
     if (numHabitacion != -1)
     {
-        printf_s("\n CheckIn exitoso, el numero de habitacion es: #%d",numHabitacion);
+        printf_s("\n CheckIn exitoso, el numero de habitacion es: #%d\n",numHabitacion);
     }
     else
     {
@@ -42,7 +45,6 @@ void CheckIn(Hotel*hotel)
 
 
 }
-
 void CheckOut(Hotel*hotel)
 {
     int numHabitacion = 0;
@@ -58,36 +60,51 @@ void CheckOut(Hotel*hotel)
     }
 
 }
-
 void realizarCargosHabitacion(Hotel*hotel)
 {
     int numHabitacion;
     double monto;
-    hotel->realizarCargosHabitacion(numHabitacion, monto);
+    printf_s("Ingresa el numero de habitacion a hacer el cargo\n");
+    scanf_s("%d",&numHabitacion);
+    printf_s("Ingresa el monto del cargo\n");
+    cin >> monto; //Scanf_s doesn't work
+
+    if(hotel->realizarCargosHabitacion(numHabitacion, monto))
+    {
+        printf_s("CARGO EXITOSO!\n");
+    }
+    else
+    {
+        printf_s("NO SE PUEDO REALIZAR EL CARGO");
+    }
+
+
+
+
 }
-void getTotalXTarifaBase(Hotel*hotel)
+double getTotalXTarifaBase(Hotel*hotel)
 {
-    printf_s("Total x Tarifa Base: %f\n", hotel->getTotalXTarifaBase());
+    return hotel->getTotalXTarifaBase();
 }
 void imprimeOcupacion(Hotel*hotel)
 {
     hotel->imprimeOcupacion();
 }
 
-
 int main() {
 
 
-    ///// PUEBA HOTEL
+    ///// CREATE HOTEL OBJ
     Hotel h1("ELOTEL");
 
+    //2 preexisting  objects for testing
     h1.checkin("Fredi Romo", 3, 3, 5050);
     h1.checkin("Juan Perez", 4, 3, 2500);
 
 
     //MENU
-    printf_s("----------------------------");
-    printf_s("  Hotel Management system   ");
+    printf_s("----------------------------\n");
+    printf_s("  Hotel Management system   \n");
     printf_s("----------------------------\n");
     bool exit = false;
     do
@@ -124,7 +141,7 @@ int main() {
                     realizarCargosHabitacion(&h1);
                     break;
                 case 4:
-                    getTotalXTarifaBase(&h1);
+                    printf_s("Total x Tarifa Base: %f\n", getTotalXTarifaBase(&h1));
                     break;
                 case 5:
                     imprimeOcupacion(&h1);
@@ -132,6 +149,6 @@ int main() {
             }
 
 
-        } while (exit= false);//END WHILE
+        } while (!exit);//END WHILE
         return 1;
 }//END MAIN
