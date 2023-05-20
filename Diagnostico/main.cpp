@@ -10,7 +10,7 @@
 using namespace std;
 
 
-int CheckIn(Hotel*hotel)
+void CheckIn(Hotel*hotel)
 {
     string nombre;
     int adultos;
@@ -31,16 +31,14 @@ int CheckIn(Hotel*hotel)
     scanf_s("%s",&credito);
 
     int numHabitacion = hotel->checkin(nombre,adultos,infantes,credito);
-    return numHabitacion;
-    /*if (numHabitacion != -1)
+    if (numHabitacion != -1)
     {
         printf_s("\n CheckIn exitoso, el numero de habitacion es: #%d",numHabitacion);
-        return numHabitacion;
-    }*/
-    /*else
+    }
+    else
     {
         printf_s("\nNo fue posible realizar el CheckIn...");
-    }*/
+    }
 
 
 }
@@ -79,26 +77,13 @@ void imprimeOcupacion(Hotel*hotel)
 
 int main() {
 
-    //Prueba métodos de Habitación
-    /*Habitacion a1(100);
-    a1.setNumero(200);
-    a1.getNumero();
-    a1.setDisponible(true);
-    a1.getDisponible();
-    a1.checkin("Alfredo Romo Osorno", 2, 2, 5000);
-    a1.getTarifaBase();
-    a1.realizarCargo(1000);
-    a1.toString();
-    a1.checkOut();*/
-    ///////////
 
     ///// PUEBA HOTEL
     Hotel h1("ELOTEL");
-    /*
-    cout << h1.checkin("Fredi Romo", 3, 3, 5050) << endl;
-    cout << h1.checkin("Juan Perez", 4, 3, 2500) << endl;
-    h1.imprimeOcupacion();
-    cout << h1.getTotalXTarifaBase();*/
+
+    h1.checkin("Fredi Romo", 3, 3, 5050);
+    h1.checkin("Juan Perez", 4, 3, 2500);
+
 
     //MENU
     printf_s("----------------------------");
@@ -130,7 +115,7 @@ int main() {
                     exit=true;
                     break;
                 case 1:
-                    cout << CheckIn(&h1)<<endl;
+                    CheckIn(&h1);
                     break;
                 case 2:
                     CheckOut(&h1);
